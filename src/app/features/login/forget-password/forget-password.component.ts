@@ -10,6 +10,7 @@ export class ForgetPasswordComponent implements OnInit {
 
   email: string = "";
   errMessage: string = "";
+  vldMessage: string = "";
 
   constructor(private auth: AngularFireAuth ) { }
 
@@ -20,8 +21,8 @@ export class ForgetPasswordComponent implements OnInit {
     this.errMessage = "";
     
     this.auth.sendPasswordResetEmail(this.email)
-      .then(e=>{
-        console.log(e);
+      .then(()=>{
+        this.vldMessage = "Check your email inbox .";
       })
       .catch(e=>{
         this.errMessage = e.message.replace('Firebase: ','');
