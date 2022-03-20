@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from "@angular/fire/compat/auth";
 
 @Component({
   selector: 'app-forget-password',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgetPasswordComponent implements OnInit {
 
-  constructor() { }
+  email: string = "";
+  errMessage: string = "";
+
+  constructor(private auth: AngularFireAuth ) { }
 
   ngOnInit(): void {
+  }
+
+  onForget(){
+    this.errMessage = "";
+    
+    this.auth.sendPasswordResetEmail(this.email)
+      .then(e=>{
+        console.log(e);
+      })
+      .catch(e=>{
+        this.errMessage = e.message.replace('Firebase: ','');
+      });
   }
 
 }

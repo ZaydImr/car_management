@@ -23,6 +23,8 @@ export class LoginFormComponent implements OnInit {
   }
 
   onLogin(){
+    this.errMessage = "";
+    
     const {email,password} = this.loginForm.value;
     this.auth.signInWithEmailAndPassword(email,password)
       .then(()=>{
